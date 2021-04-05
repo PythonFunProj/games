@@ -44,6 +44,3 @@ def main_menu(): #mainmenu function
 
 main_menu()
 pygame.quit()
-
-                
-
