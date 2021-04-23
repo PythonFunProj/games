@@ -5,7 +5,7 @@ mainClock = pygame.time.Clock()
 WINDOW = (800, 800)
 screen = pygame.display.set_mode(WINDOW, 0, 32)
 walls = [pygame.Rect(0, 750, 800, 50), pygame.Rect(600, 600, 300, 300), pygame.Rect(200, 200, 50, 50), pygame.Rect(400,90,400,10)]
-killrects = pygame.Rect(0,749,50,10) #This kind of rectangle kills the player
+killrects = [pygame.Rect(0,749,50,10), pygame.Rect(100, 600, 50, 10)] #This kind of rectangle kills the player
 player = pygame.Rect(300, 600, 25, 25)
 MOVESPEED = 15
 MOVESPEEDy = 0
@@ -80,10 +80,11 @@ while True:
             MOVESPEEDy = 0
             collisionT = True
     """collision with killrect"""
-    if player.colliderect(killrects):
-        print("ouch")
-        player.left = (500)
-        player.top = (700)
+    for kr in killrects[:]:
+        if player.colliderect(kr):
+            print("ouch")
+            player.left = (500)
+            player.top = (700)
     """new wall"""
     x, y = pygame.mouse.get_pos()
     draw_text(str(pygame.mouse.get_pos()), font, (0,255,0),screen, 0, 0)
@@ -98,7 +99,8 @@ while True:
     """draw walls and killrect"""
     for i in range(len(walls)):
         pygame.draw.rect(screen, (0, 0, 0), walls[i])
-    pygame.draw.rect(screen,(200,0,0),killrects)
+    for kr in range(len(killrects)):
+        pygame.draw.rect(screen,(200,0,0),killrects[kr])
     """draw text"""
     draw_text("this will hurt you", font, (255,0,0), screen, 0, 700)
     """end"""
