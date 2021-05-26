@@ -4,7 +4,7 @@ from queue import Queue, Empty
 import websocket
 import _thread
 import os
-from levelsdata import wallsforlevel, killrectsforlevel, winrectsforlevel, spawnforlevel, backgroundforlevel
+from levelsdata import wallsforlevel, killrectsforlevel, winrectsforlevel, spawnforlevel, backgroundforlevel, fakewallsforlevel
 # sets the location of the .py file as the working directory
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
@@ -227,7 +227,7 @@ class Elevators:
             self.height -= 1
 
 
-def display_frame(friend, colors, screen, walls, xbutton, ybutton, height, player, xelevator, yelevator, killrects, winrects, background, image):
+def display_frame(friend, colors, screen, walls, xbutton, ybutton, height, player, xelevator, yelevator, killrects, winrects,fakewalls, background, image):
 
     screen.fill((35, 35, 60))
     screen.blit(background, [0, 0])
@@ -244,6 +244,8 @@ def display_frame(friend, colors, screen, walls, xbutton, ybutton, height, playe
         pygame.draw.rect(screen, (200, 0, 0), kr)
     for wr in winrects:
         pygame.draw.rect(screen, (200, 200, 0), wr)
+    for fw in fakewalls:
+        pygame.draw.rect(screen,(0,0,0),fw)
         
     # button:
     pygame.draw.rect(screen, (50, 50, 50), pygame.Rect(xbutton, ybutton, 105, 8))
@@ -264,10 +266,11 @@ def updatelevel(level, game):
     killrects = killrectsforlevel(level)
     winrects = winrectsforlevel(level)
     spawn = spawnforlevel(level)
+    fakewalls = fakewallsforlevel(level)
     background = backgroundforlevel(level)
     game.player.left = (int(spawn[0]))
     game.player.top = (int(spawn[1]))
-    return killrects, winrects, background
+    return killrects, winrects, background, fakewalls
 
 
 def main():
@@ -291,7 +294,7 @@ def main():
     pygame.display.set_caption("client")
     pygame.mouse.set_visible(False)
 
-    killrects, winrects, background = updatelevel(level, game)
+    killrects, winrects, background, fakewalls = updatelevel(level, game)
 
     done = False
     # Main game loop
@@ -303,7 +306,7 @@ def main():
         # Update object positions, check for collisions
         win, level = game.run_logic(winrects, killrects, level)
         if win:
-            killrects, winrects, background = updatelevel(level, game)
+            killrects, winrects, background, fakewalls= updatelevel(level, game)
         elevator.button(game.player.left, game.player.top, game.friend)
         elevator.elevator()
 
@@ -334,7 +337,7 @@ def main():
             online = False
         # Draw the current frame
         display_frame(game.friend, colors, screen, game.walls, elevator.xbutton, elevator.ybutton, elevator.height,
-                      game.player, elevator.xelevator, elevator.yelevator, killrects, winrects, background, image1)
+                      game.player, elevator.xelevator, elevator.yelevator, killrects, winrects, fakewalls, background, image1)
 
         # Pause for the next frame
         clock.tick(60)
