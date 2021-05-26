@@ -19,7 +19,8 @@ os.chdir(dname)
 
 pygame.init()
 
-preview = pygame.image.load('previews/placeholder.png')
+preview = pygame.image.load('previews/tin.png')
+preview = pygame.transform.scale(preview,(250,250))
 screen = pygame.display.set_mode((500,750)) #window
 pygame.display.set_caption('PythonFun.exe')
 
@@ -63,7 +64,7 @@ def main_menu(): #mainmenu function
         action = click[0]
         screen.fill((0,0,0))
         screen.blit(background,[0,0])
-        buttonmaker(100, 100, 'plateformermain.py', (0,255,0), (0,200,0), mouse, click, 'Plateformer','previews/plt.png')
+        buttonmaker(100, 100, 'plateformermain.py', (0,255,0), (0,200,0), mouse, click, 'PlateformerN','previews/plt.png')
         buttonmaker(100, 150, 'chess.py', (255,255,0), (200,200,0), mouse, click, 'Chess','previews/chess.png')
         buttonmaker(100, 200, 'tetris2.py', (255,0,0), (200,0,0), mouse, click, 'Tetris','previews/tetris.png')
         buttonmaker(100, 250, 'flappy_bird.py', (255,0,255), (200,0,200), mouse, click, 'Flappy Bird','previews/fb.png')
@@ -71,6 +72,7 @@ def main_menu(): #mainmenu function
         buttonmaker(100, 350, 'snake.py', (0,255,255), (0,200,200), mouse, click, 'Snake','previews/placeholder.png')
         buttonmaker(100, 400, 'planes.py', (255,255,255), (200,200,200), mouse, click, 'Planes','previews/planepromo.png')
         buttonmaker(100, 450, '2048.py', (200,200,200), (100,100,100), mouse, click, '2048','previews/2048.png')
+        buttonmaker(100, 500, 'parcour_client_2.1.py', (100,255,0), (75,200,000), mouse, click, 'PlateformerR','previews/placeholder.png')
         draw_text('-Main Menu-', font, (255,0,0), screen, 210,20)
         draw_text(str(mouse), font, (0,255,0),screen, 0, 0)
         
