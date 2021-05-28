@@ -33,7 +33,7 @@ def ws_thread(*args):
     ws.run_forever()
 
 
-ws = websocket.WebSocketApp("ws://172.30.2.236:6789/", on_open=ws_open, on_message=ws_message)
+ws = websocket.WebSocketApp("ws:///", on_open=ws_open, on_message=ws_message)
 
 # Start a new thread for the WebSocket interface
 _thread.start_new_thread(ws_thread, ())
