@@ -11,6 +11,7 @@ from sys import exit
 import os
 from pygame import draw
 import runpy
+from pygame.locals import *
 pltmain = "plateformermain.py"
 
 abspath = os.path.abspath(__file__) #sets the location of the Menu.py as the working directory
@@ -27,6 +28,7 @@ pygame.display.set_caption('PythonFun.exe')
 mainclock = pygame.time.Clock()
 font = pygame.font.SysFont(None,20)
 run = True
+secretbutton = False
 background = pygame.image.load('backgroundmainmenu.png')
 green = (0,200,0)
 bright_green = (0,255,0)
@@ -58,6 +60,7 @@ def potato():
 
 def main_menu(): #mainmenu function
     pygame.event.get()
+    
     while run:
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
@@ -69,10 +72,9 @@ def main_menu(): #mainmenu function
         buttonmaker(100, 200, 'tetris2.py', (255,0,0), (200,0,0), mouse, click, 'Tetris','previews/tetris.png')
         buttonmaker(100, 250, 'flappy_bird.py', (255,0,255), (200,0,200), mouse, click, 'Flappy Bird','previews/fb.png')
         buttonmaker(100, 300, 'demineur.py', (0,0,255), (0,0,200), mouse, click, 'Minesweeper','previews/ms.png')
-        buttonmaker(100, 350, 'snake.py', (0,255,255), (0,200,200), mouse, click, 'Snake','previews/placeholder.png')
+        buttonmaker(100, 350, 'snake.py', (0,255,255), (0,200,200), mouse, click, 'Snake','previews/snake.png')
         buttonmaker(100, 400, 'planes.py', (255,255,255), (200,200,200), mouse, click, 'Planes','previews/planepromo.png')
         buttonmaker(100, 450, '2048.py', (200,200,200), (100,100,100), mouse, click, '2048','previews/2048.png')
-        buttonmaker(100, 500, 'parcour_client_2.1.py', (100,255,0), (75,200,000), mouse, click, 'PlateformerR','previews/placeholder.png')
         draw_text('-Main Menu-', font, (255,0,0), screen, 210,20)
         draw_text(str(mouse), font, (0,255,0),screen, 0, 0)
         
@@ -90,8 +92,15 @@ def main_menu(): #mainmenu function
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+            if event.type == KEYDOWN:
+                if event.key == K_t:
+                    global secretbutton
+                    if secretbutton == True:
+                        pass
+                    else:
+                        secretbutton == True  
+                        buttonmaker(100, 500, 'parcour_client_2.1.py', (100,255,0), (75,200,000), mouse, click, 'PlateformerR','previews/plt.png')
 
-        
         rectprev = preview.get_rect()
         rectprev.center = 325,200
         screen.blit(preview, rectprev)

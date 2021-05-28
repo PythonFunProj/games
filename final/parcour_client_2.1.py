@@ -13,7 +13,7 @@ print(websocket.__version__)
 q = Queue()
 online = True
 colors = [(255, 0, 0), (0, 255, 0), (255, 255, 0)]
-pygame.mixer.init() ########################
+pygame.mixer.init()
 s = 'sound'
 jumpsound = pygame.mixer.Sound('sounds/SFX_Jump_09.wav')
 hurtsound = pygame.mixer.Sound('sounds/SFX_Jump_50.wav')
@@ -75,10 +75,8 @@ class Game:
                     #print("oui")
                     self.player.left = wall.right
                     self.collision = True
-
             if self.player.left < 0:
                 self.player.left = 0
-
             for player1 in self.friend:
                 x = self.player
                 x1 = int(player1[0])
